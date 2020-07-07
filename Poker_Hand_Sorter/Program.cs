@@ -24,9 +24,6 @@ namespace Poker_Hand_Sorter
                     List<string> player1 = line.Split(' ').Take(5).ToList();
                     List<string> player2 = line.Split(' ').Skip(5).Take(5).ToList();
 
-                    //Console.WriteLine($"Is Same Suit: {IsSameSuit(player1)}");
-                    //Console.WriteLine($"Is Same Suit: {IsSameSuit(player2)}");
-
                     List<string> playerSuit_1 = player1.Select(x => { return x[1].ToString(); }).ToList();
                     List<string> playerSuit_2 = player2.Select(x => { return x[1].ToString(); }).ToList();
 
