@@ -55,8 +55,8 @@ namespace Poker_Hand_Sorter
 
                 }
 
-                Console.WriteLine("Player 1: {0}", playerWin_1);
-                Console.WriteLine("Player 2: {0}", playerWin_2);
+                Console.WriteLine("Player 1: {0} hands", playerWin_1);
+                Console.WriteLine("Player 2: {0} hands", playerWin_2);
             }
             catch (Exception e)
             {
