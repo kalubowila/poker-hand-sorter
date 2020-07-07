@@ -14,46 +14,54 @@ namespace Poker_Hand_Sorter
             string fileName = "poker-hands.txt";
             int playerWin_1 = 0;
             int playerWin_2 = 0;
-            //Effieicent with large files
-            foreach (var line in File.ReadLines(fileName))
+
+            try
             {
-
-                List<string> player1 = line.Split(' ').Take(5).ToList();
-                List<string> player2 = line.Split(' ').Skip(5).Take(5).ToList();
-
-                //Console.WriteLine($"Is Same Suit: {IsSameSuit(player1)}");
-                //Console.WriteLine($"Is Same Suit: {IsSameSuit(player2)}");
-
-                List<string> playerSuit_1 = player1.Select(x => { return x[1].ToString(); }).ToList();
-                List<string> playerSuit_2 = player2.Select(x => { return x[1].ToString(); }).ToList();
-
-                List<int> playerValues_1 = player1.Select(x => { return CardValue(x[0].ToString()); }).ToList();
-                List<int> playerValues_2 = player2.Select(x => { return CardValue(x[0].ToString()); }).ToList();
-
-                int rankPlayer1 = GetRank(playerSuit_1, playerValues_1);
-                int rankPlayer2 = GetRank(playerSuit_2, playerValues_2);
-
-                if (rankPlayer1 > rankPlayer2) playerWin_1++;
-                else if (rankPlayer2 > rankPlayer1) playerWin_2++;
-                else
+                //Effieicent with large files
+                foreach (var line in File.ReadLines(fileName))
                 {
-                    int tieRank = TieBreak(rankPlayer1, playerValues_1, playerValues_2);
 
-                    switch (tieRank)
+                    List<string> player1 = line.Split(' ').Take(5).ToList();
+                    List<string> player2 = line.Split(' ').Skip(5).Take(5).ToList();
+
+                    //Console.WriteLine($"Is Same Suit: {IsSameSuit(player1)}");
+                    //Console.WriteLine($"Is Same Suit: {IsSameSuit(player2)}");
+
+                    List<string> playerSuit_1 = player1.Select(x => { return x[1].ToString(); }).ToList();
+                    List<string> playerSuit_2 = player2.Select(x => { return x[1].ToString(); }).ToList();
+
+                    List<int> playerValues_1 = player1.Select(x => { return CardValue(x[0].ToString()); }).ToList();
+                    List<int> playerValues_2 = player2.Select(x => { return CardValue(x[0].ToString()); }).ToList();
+
+                    int rankPlayer1 = GetRank(playerSuit_1, playerValues_1);
+                    int rankPlayer2 = GetRank(playerSuit_2, playerValues_2);
+
+                    if (rankPlayer1 > rankPlayer2) playerWin_1++;
+                    else if (rankPlayer2 > rankPlayer1) playerWin_2++;
+                    else
                     {
-                        case 1:
-                            playerWin_1++;
-                            break;
-                        case 2:
-                            playerWin_2++;
-                            break;
+                        int tieRank = TieBreak(rankPlayer1, playerValues_1, playerValues_2);
+
+                        switch (tieRank)
+                        {
+                            case 1:
+                                playerWin_1++;
+                                break;
+                            case 2:
+                                playerWin_2++;
+                                break;
+                        }
                     }
+
                 }
 
+                Console.WriteLine("Player 1: {0}", playerWin_1);
+                Console.WriteLine("Player 2: {0}", playerWin_2);
             }
-
-            Console.WriteLine("Player 1: {0}", playerWin_1);
-            Console.WriteLine("Player 2: {0}", playerWin_2);
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             Console.ReadLine();
         }
